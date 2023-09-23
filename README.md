@@ -1,10 +1,86 @@
-- 👋 Hi, I’m @nguyxnvanbanq
-- 👀 I’m interested in code
-- 🌱 I’m currently learning thpt_ly_nhan_tong
-- 💞️ I’m looking to collaborate on
-- 📫 How to reach me 0941520403
+#include <EditConstants.au3>
+#include <GUIConstantsEx.au3>
+#include <WindowsConstants.au3>
+Opt("GUIResizeMode", $GUI_DOCKAUTO)
+#Region ### START Koda GUI section ### Form=
+Global $Formnotepad = GUICreate("Untitled-Notepad", 597, 389, 222, 125, BitOR($GUI_SS_DEFAULT_GUI,$WS_MAXIMIZEBOX,$WS_SIZEBOX,$WS_THICKFRAME,$WS_TABSTOP))
+Global $MenuItemfile = GUICtrlCreateMenu("&File")
+Global $MenuItemnew = GUICtrlCreateMenuItem("&New", $MenuItemfile)
+Global $MenuItemopen = GUICtrlCreateMenuItem("&Open", $MenuItemfile)
+Global $MenuItemsave = GUICtrlCreateMenuItem("&Save", $MenuItemfile)
+Global $MenuItemsaveas = GUICtrlCreateMenuItem("Save &As...", $MenuItemfile)
+Global $MenuItem1 = GUICtrlCreateMenuItem("", $MenuItemfile)
+Global $MenuItem2 = GUICtrlCreateMenuItem("&Page setup...", $MenuItemfile)
+Global $MenuItem3 = GUICtrlCreateMenuItem("&Print", $MenuItemfile)
+Global $MenuItem4 = GUICtrlCreateMenuItem("", $MenuItemfile)
+Global $MenuItem5 = GUICtrlCreateMenuItem("&Exit", $MenuItemfile)
+Global $MenuItemedit = GUICtrlCreateMenu("&Edit")
+Global $MenuItemformat = GUICtrlCreateMenu("F&ormat")
+Global $MenuItemview = GUICtrlCreateMenu("&View")
+Global $MenuItemHelp = GUICtrlCreateMenu("&Help")
+Global $MenuItem6 = GUICtrlCreateMenuItem("&About", $MenuItemHelp)
+Global $MenuItem7 = GUICtrlCreateMenuItem("", $MenuItemHelp)
+GUISetCursor (5)
+GUISetFont(12, 400, 0, ".VnArial")
+GUISetBkColor(0xFFFFFF)
+Global $Edit1 = GUICtrlCreateEdit("", -3, 0, 616, 391)
+GUICtrlSetResizing(-1, $GUI_DOCKAUTO)
+GUISetState(@SW_SHOW)
+#EndRegion ### END Koda GUI section ###
 
-<!---
-nguyxnvanbanq/nguyxnvanbanq is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+While 1
+	$nMsg = GUIGetMsg()
+	Switch $nMsg
+
+		Case $GUI_EVENT_CLOSE
+		Global $yes=MsgBox(1+48+262144,'Notepad','Bạn có chắc chắn muốn tắt ứng dụng')
+			If $yes = '1' Then
+				Exit
+				EndIf
+
+
+		Case $MenuItemfile
+		Case $MenuItemnew
+		Case $MenuItemsave
+			;mở hộp thoại chọn file
+			;nếu không có dữ liệu thì xóa edit
+			;nếu có dữ liệu thì xóa edit và hiển thị dữ liệu nếu người dùng đồng ý không thì giữ nguyên
+			Global $content = GUICtrlRead($Edit1)
+			If $content Then
+			Local $action = MsgBox(3+262144,'Open','Do you want to save changes to Untitled?')
+			EndIf
+			If $action = 7 Or $action = 6 Then
+				GUICtrlSetData($Edit1,'')
+
+			EndIf
+			If $action = 6 Then
+			Global $filehandale=FileSaveDialog('Open',@ScriptDir,'Text File(*.txt)|All File(*.*)',16,'*.txt',$Formnotepad)
+
+			EndIf
+			If $filehandale Then
+				$filepath= FileOpen($filehandale,2)
+				FileWrite($filepath,$content)
+
+				EndIf
+		Case $MenuItemsave
+		Case $MenuItemsaveas
+		Case $MenuItem1
+		Case $MenuItem2
+		Case $MenuItem3
+		Case $MenuItem4
+		Case $MenuItem5
+			Exit
+		Case $MenuItemedit
+		Case $MenuItemformat
+		Case $MenuItemview
+		Case $MenuItemHelp
+		Case $MenuItem6
+			MsgBox(32+262144,'About','Developed:Trần Phạm Duy Minh | Thử nghiệm đến hết năm:' & @YEAR)
+		Case $MenuItem7
+		Case $Formnotepad
+		Case $Formnotepad
+		Case $Formnotepad
+		Case $Formnotepad
+		Case $Edit1
+	EndSwitch
+WEnd
